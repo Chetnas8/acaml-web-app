@@ -1,5 +1,5 @@
 streamlit
-flaml
+flaml[notune]==1.2.1
 shap
 scikit-learn
 pandas
