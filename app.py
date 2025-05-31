@@ -72,8 +72,21 @@ with tabs[1]:
     st.subheader("📈 Model Performance")
     if 'accuracy' in st.session_state:
         score = st.session_state['accuracy']
-        st.metric("🎯 Accuracy" if st.session_state['task_type'] == 'classification' else "🎯 R2 Score", f"{score*100:.2f}%")
-        st.text(f"Best Model: {st.session_state['automl'].model}")
+        task_label = "Accuracy" if st.session_state['task_type'] == 'classification' else "R2 Score"
+        # Display the main metric
+        st.markdown(f"""
+            <div style='text-align: center; font-size: 48px; font-weight: bold; color: #2E86AB;'>
+                {task_label}: {score*100:.2f}%
+            </div>
+        """, unsafe_allow_html=True)
+
+        # Get and display the best model's name in big style
+        model_name = type(st.session_state['automl'].model).__name__
+        st.markdown(f"""
+            <div style='text-align: center; font-size: 32px; font-weight: bold; color: #2E86AB; margin-top: 20px;'>
+                Best Model: {model_name}
+            </div>
+        """, unsafe_allow_html=True)
     else:
         st.info("Run a model first from the Upload tab.")
 
