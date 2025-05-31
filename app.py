@@ -4,7 +4,7 @@ import shap
 import matplotlib.pyplot as plt
 from flaml import AutoML
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, r2_score  # Added r2_score
 
 st.set_page_config(page_title="ACAML : Adaptive Constraint-Aware AutoML")
 st.title("📊 ACAML : Adaptive Constraint-Aware AutoML")
@@ -33,6 +33,7 @@ with tabs[0]:
                 except:
                     pass
 
+            # Determine the task type
             if pd.api.types.is_numeric_dtype(df[target_column]) and df[target_column].nunique() > 10:
                 task_type = "regression"
             else:
@@ -56,12 +57,16 @@ with tabs[0]:
             try:
                 automl.fit(X_train=X_train, y_train=y_train, **automl_settings)
                 y_pred = automl.predict(X_test)
-                acc = accuracy_score(y_test, y_pred) if task_type == 'classification' else automl.score(X_test, y_test)
+
+                if task_type == 'classification':
+                    score = accuracy_score(y_test, y_pred)
+                else:
+                    score = r2_score(y_test, y_pred)
 
                 st.session_state['X_train'] = X_train
                 st.session_state['X_test'] = X_test
                 st.session_state['automl'] = automl
-                st.session_state['accuracy'] = acc
+                st.session_state['score'] = score
                 st.session_state['task_type'] = task_type
                 st.success("✅ Training complete!")
 
@@ -70,10 +75,9 @@ with tabs[0]:
 
 with tabs[1]:
     st.subheader("📈 Model Performance")
-    if 'accuracy' in st.session_state:
-        score = st.session_state['accuracy']
+    if 'score' in st.session_state:
+        score = st.session_state['score']
         task_label = "Accuracy" if st.session_state['task_type'] == 'classification' else "R2 Score"
-        # Display the main metric
         st.markdown(f"""
             <div style='text-align: center; font-size: 48px; font-weight: bold; color: #2E86AB;'>
                 {task_label}: {score*100:.2f}%
