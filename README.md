@@ -13,7 +13,7 @@ ACAML empowers users to:
 - Display key performance metrics (Accuracy or R² Score) clearly and intuitively
 - Visualize model interpretability through SHAP feature importance plots
 
-👉 **[Live Demo of the App](https://your-streamlit-app-link.streamlit.app)**
+👉 **[Live Demo of the App](https://acaml-web-app-aepx9uhzknncmoyx7hbszc.streamlit.app/)**
 
 This app is designed to democratize machine learning for users of all skill levels, making it easy to explore, train, and interpret models interactively.
 
