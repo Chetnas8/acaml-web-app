@@ -1,3 +1,5 @@
+[![Streamlit](https://img.shields.io/badge/Deployed%20on-Streamlit-brightgreen)](https://your-streamlit-app-link.streamlit.app)
+
 # 📊 ACAML: Adaptive Constraint-Aware AutoML Web Application
 
 Welcome to **ACAML**, an innovative web-based AutoML application built with Streamlit. This project demonstrates my ability to design, implement, and deploy real-world machine learning solutions with user-friendly interfaces and powerful automation features.
